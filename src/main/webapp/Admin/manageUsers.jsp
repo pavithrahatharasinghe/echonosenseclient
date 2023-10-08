@@ -21,11 +21,9 @@
                                         <th>Last Name</th>
                                         <th>Email</th>
 
-                                        <th>loanLimit</th>
-                                        <th>loanBalance</th>
-                                        <th>usedAmount</th>
                                         <th>status</th>
                                         <th>Remove</th>
+                                        <th>Update Status</th>
                                     </tr>
                                     </thead>
                                     <tbody id="customerTableBody">
@@ -34,6 +32,10 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- ... (previous code) -->
+
+                    <!-- ... (previous code) -->
 
                     <script>
                         refreshTable();
@@ -50,11 +52,11 @@
                             $('input[placeholder="New Email"]').val(email);
                         });
 
-                        $('#customerTableBody').on('click', 'button', function () {
+                        $('#customerTableBody').on('click', '.delete-button', function () {
                             const customerId = $(this).closest('tr').find('td:eq(0)').text();
                             const button = $(this);
                             button.text('Processing...');
-                            const url = 'http://localhost:8080/BumbleBee_REST_war_exploded/api/customers/' + customerId;
+                            const url = 'http://localhost:8080/echonosenserest_war_exploded/api/users/' + customerId;
                             const options = {
                                 method: 'DELETE',
                                 headers: {
@@ -79,9 +81,37 @@
                                 });
                         });
 
+                        $('#customerTableBody').on('click', '.update-status-button', function () {
+                            const customerId = $(this).closest('tr').find('td:eq(0)').text();
+                            const currentStatus = $(this).closest('tr').find('td:eq(4)').text(); // Assuming status is in the 5th column
+                            const newStatus = currentStatus === 'active' ? 'inactive' : 'active'; // Toggle status
+
+                            const url = 'http://localhost:8080/echonosenserest_war_exploded/api/users/status/' + customerId + '/' + newStatus;
+                            const options = {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            };
+
+                            fetch(url, options)
+                                .then(response => {
+                                    if (response.ok) {
+                                        const message = 'User status updated successfully';
+                                        alert(message);
+                                        refreshTable();
+                                    } else {
+                                        alert(`Failed to update user status: ${response.status}`);
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error(error);
+                                    alert('An error occurred');
+                                });
+                        });
 
                         function refreshTable() {
-                            const url = 'http://localhost:8080/BumbleBee_REST_war_exploded/api/customers';
+                            const url = 'http://localhost:8080/echonosenserest_war_exploded/api/users';
                             const options = {
                                 method: 'GET',
                                 headers: {
@@ -96,21 +126,19 @@
                                     // Clear the table body
                                     $('#customerTableBody').empty();
                                     // Populate the table with the data
-                                    $.each(data, function (index, customer) {
+                                    $.each(data, function (index, user) {
                                         const row = '<tr>' +
-                                            '<td>' + customer.id + '</td>' +
-                                            '<td>' + customer.firstName + '</td>' +
-                                            '<td>' + customer.lastName + '</td>' +
-                                            '<td>' + customer.email + '</td>' +
-
-                                            '<td>' + customer.loanLimit + '</td>' +
-                                            '<td>' + customer.loanBalance + '</td>' +
-                                            '<td>' + customer.usedAmount + '</td>' +
-                                            '<td>' + customer.status + '</td>' +
+                                            '<td>' + user.userId + '</td>' +
+                                            '<td>' + user.fname + '</td>' +
+                                            '<td>' + user.lName + '</td>' +
+                                            '<td>' + user.email + '</td>' +
+                                            '<td>' + user.status + '</td>' +
                                             '<td>' +
-                                            '<button type="button" class="btn btn-danger" >Delete</button>' +
+                                            '<button type="button" class="btn btn-danger delete-button">Delete</button>' +
                                             '</td>' +
-
+                                            '<td>' +
+                                            '<button type="button" class="btn btn-primary update-status-button">Update Status</button>' +
+                                            '</td>' +
                                             '</tr>';
                                         $('#customerTableBody').append(row);
                                     });
@@ -118,6 +146,10 @@
                                 .catch(error => console.error(error));
                         }
                     </script>
+
+                    <!-- ... (remaining code) -->
+
+
                 </div>
 
             </div>
