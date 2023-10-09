@@ -38,10 +38,10 @@
                     <p>Subscriptions </p>
                 </a>
             </li>
-            <li class="nav-item <%= currentPage.equals("manageCoinPredictions.jsp") ? "active" : "" %>">
-                <a class="nav-link" href="manageCoinPredictions.jsp">
-                    <i class="nc-icon nc-atom"></i>
-                    <p>Coin Predictions</p>
+            <li class="nav-item <%= currentPage.equals("manageCoins.jsp") ? "active" : "" %>">
+                <a class="nav-link" href="manageCoins.jsp">
+                    <i class="nc-icon nc-planet"></i>
+                    <p>Coin Management</p>
                 </a>
             </li>
             <li class="nav-item <%= currentPage.equals("manageNews.jsp") ? "active" : "" %>">
@@ -68,20 +68,10 @@
                     <p>Admin Logs</p>
                 </a>
             </li>
-            <li class="nav-item <%= currentPage.equals("manageCoins.jsp") ? "active" : "" %>">
-                <a class="nav-link" href="manageCoins.jsp">
-                    <i class="nc-icon nc-planet"></i>
-                    <p>Coin Management</p>
-                </a>
-            </li>
-            <li class="nav-item <%= currentPage.equals("manageSources.jsp") ? "active" : "" %>">
-                <a class="nav-link" href="manageSources.jsp">
-                    <i class="nc-icon nc-world-2"></i>
-                    <p>News Sources</p>
-                </a>
-            </li>
+
+
             <li class="nav-item active active-pro">
-                <a class="nav-link active" href="logout.jsp">
+                <a class="nav-link active" href="../logout.jsp">
                     <i class="nc-icon nc-alien-33"></i>
                     <p>Logout</p>
                 </a>

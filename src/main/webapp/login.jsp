@@ -71,8 +71,9 @@
                         alert("Login successful");
                         document.cookie = `admin_username=${usernameInput.value}`;
                         document.cookie = `isLoggedIn=1`;
-                        window.location.href = "adminDashboard.jsp";
-                        if (role === "admin") {
+                        console.log(role);
+                        //window.location.href = "adminDashboard.jsp";
+                            if (role === "admin") {
                             window.location.href = "admin/adminDashboard.jsp";
                         } else if (role === "customer") {
                             window.location.href = "Customer/customerDashboard.jsp";
