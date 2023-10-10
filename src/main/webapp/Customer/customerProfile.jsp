@@ -1,13 +1,13 @@
 <jsp:include page="customerHeader.jsp" />
 
-<body>
 <div class="wrapper">
     <jsp:include page="customerSidebar.jsp" />
     <div class="main-panel">
+        <!-- Include the navbar -->
         <jsp:include page="customerNavbar.jsp" />
+
         <div class="content">
             <div class="container-fluid">
-
                 <!-- View and Update Personal Details -->
                 <div class="col-md-6">
                     <div class="card">
@@ -17,72 +17,65 @@
                         <div class="card-body">
                             <form id="updateProfileForm">
                                 <div class="form-group">
-                                    <label>Name</label>
-                                    <input type="text" required class="form-control" placeholder="Name" name="Name">
+                                    <label>First Name</label>
+                                    <input type="text" required class="form-control" placeholder="First Name" name="firstName">
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" required class="form-control" placeholder="Last Name" name="lastName">
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" required class="form-control" placeholder="Email" name="Email">
+                                    <input type="email" required class="form-control" placeholder="Email" name="email">
                                 </div>
+                                <!-- Add a hidden input for userId -->
+                                <input type="hidden" name="userId" value="1">
                                 <button id="updateProfileBtn" type="submit" class="btn btn-primary">Update Profile</button>
                             </form>
                         </div>
                     </div>
                 </div>
-
-                <!-- Change Password -->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Change Password</h4>
-                        </div>
-                        <div class="card-body">
-                            <form id="changePasswordForm">
-                                <div class="form-group">
-                                    <label>Current Password</label>
-                                    <input type="password" required class="form-control" placeholder="Current Password" name="currentPassword">
-                                </div>
-                                <div class="form-group">
-                                    <label>New Password</label>
-                                    <input type="password" required class="form-control" placeholder="New Password" name="newPassword">
-                                </div>
-                                <div class="form-group">
-                                    <label>Confirm New Password</label>
-                                    <input type="password" required class="form-control" placeholder="Confirm New Password" name="confirmNewPassword">
-                                </div>
-                                <button id="changePasswordBtn" type="submit" class="btn btn-primary">Change Password</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Scripts for Profile Operations -->
-                <script>
-                    document.getElementById("updateProfileBtn").addEventListener("click", function(event) {
-                        event.preventDefault();
-
-                        // Add logic to send the updated profile information to the server.
-                    });
-
-                    document.getElementById("changePasswordBtn").addEventListener("click", function(event) {
-                        event.preventDefault();
-
-                        const newPassword = document.querySelector('input[name="newPassword"]').value;
-                        const confirmNewPassword = document.querySelector('input[name="confirmNewPassword"]').value;
-
-                        if (newPassword !== confirmNewPassword) {
-                            alert("New passwords do not match!");
-                            return;
-                        }
-
-                        // Add logic to send the password change request to the server.
-                    });
-                </script>
-
             </div>
         </div>
     </div>
 </div>
-</body>
+
+<script>
+    // Function to handle the form submission for updating user information
+    function submitUpdateUserForm(event) {
+        event.preventDefault();
+
+        const formData = {
+            firstName: document.querySelector('input[name="firstName"]').value,
+            lastName: document.querySelector('input[name="lastName"]').value,
+            email: document.querySelector('input[name="email"]').value
+        };
+
+        // Assuming you have a hidden input for userId
+        const userId = document.querySelector('input[name="userId"]').value;
+
+        const options = {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        };
+
+        // Replace 'vucurl' with the appropriate API endpoint
+        const vucurl = `http://localhost:8080/echonosenserest_war_exploded/api/users/${userId}`;
+        fetch(vucurl, options)
+            .then(response => {
+                if (response.ok) {
+                    alert("User information updated successfully");
+                } else {
+                    alert("An error occurred while updating user information. Please try again later.");
+                }
+            });
+    }
+
+    // Attach the form submission event handler
+    document.getElementById("updateProfileBtn").addEventListener("click", submitUpdateUserForm);
+</script>
 
 <jsp:include page="customerFooter.jsp" />

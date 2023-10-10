@@ -20,7 +20,12 @@
             currentPage = requestURI.substring(lastIndex + 1);
         }
     }
+
+
 %>
+
+
+
 
 <div class="sidebar">
     <div class="sidebar-wrapper">
@@ -29,7 +34,7 @@
         </div>
         <ul class="nav">
             <li class="nav-item <%= currentPage.equals("customerDashboard.jsp") ? "active" : "" %>">
-                <a class="nav-link" href="customerDashboard.jsp.jsp">
+                <a class="nav-link" href="customerDashboard.jsp">
                     <i class="nc-icon nc-chart-pie-35"></i>
                     <p>Dashboard</p>
                 </a>
