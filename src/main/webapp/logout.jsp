@@ -13,7 +13,16 @@
       if (cookie.getName().equals("isLoggedIn")) { // Check if the cookie with name "isLoggedIn" exists
         cookie.setValue("0"); // Update the cookie value to "0"
         response.addCookie(cookie); // Add the updated cookie to the response object
-        break; // Exit the loop after updating the cookie
+
+      }
+      if (cookie.getName().equals("customer_email")) { // Check if the cookie with name "isLoggedIn" exists
+        cookie.setValue(""); // Update the cookie value to "0"
+        response.addCookie(cookie); // Add the updated cookie to the response object
+      }
+      if (cookie.getName().equals("admin_email")) { // Check if the cookie with name "isLoggedIn" exists
+        cookie.setValue("0"); // Update the cookie value to "0"
+        response.addCookie(cookie); // Add the updated cookie to the response object
+
       }
     }
   }

@@ -77,9 +77,11 @@
 </div>
 
 <script>
-
-
     const loginUrl = "<%= host %>" + "users/login";
+
+    function setCookie(name, value) {
+        document.cookie = `${name}=${value}; path=/`;
+    }
 
     function submitLoginForm(event) {
         event.preventDefault();
@@ -98,23 +100,31 @@
         };
 
         fetch(loginUrl, requestOptions)
-            .then(response => response.text())
-            .then(role => {
-                if (role) {
+            .then(response => response.json()) // Parse the response as JSON
+            .then(user => {
+                if (user && user.userId) {
                     alert("Login successful");
-                    document.cookie = `isLoggedIn=1`;
 
-                    if (role === "admin") {
-                        document.cookie = `admin_email=${formData.email}`;
-                        alert('admin_email : '+formData.email)
-                        window.location.href = "admin/adminDashboard.jsp";
-                    } else if (role === "customer") {
-                        document.cookie = `Customer_email=${formData.email}`; // Set user email in a cookie
-                        alert('Customer_email : '+formData.email)
-                        window.location.href = "Customer/customerDashboard.jsp";
+                    // Set cookies for user information
+                    setCookie("userId", user.userId);
+                    setCookie("fname", user.fname);
+                    setCookie("lName", user.lName);
+                    setCookie("email", user.email);
+                    setCookie("role", user.role);
+                    setCookie("status", user.status);
+                    if (user.status === "active") {
+                        if (user.role === "admin") {
+                            window.location.replace("admin/setAdminLoginCookies.jsp?email=" + formData.email+ "&userId="+user.userId );
+                        } else if (user.role === "customer") {
+                            window.location.replace("Customer/setCustomerLoginCookies.jsp?email=" + formData.email+ "&userId="+user.userId);
+                        } else {
+                            alert("Invalid user role");
+                        }
+
                     } else {
-                        alert("Invalid user role");
+                        alert("User Is Inactive Please Contact Site Admin ");
                     }
+
                 } else {
                     alert("Login failed. Please try again.");
                 }
@@ -123,14 +133,12 @@
                 console.error("Error during login:", error);
                 alert("Login failed. Please try again.");
             });
-
     }
 
     document.querySelector(".login-form").addEventListener("submit", submitLoginForm);
-
-
-
 </script>
+
+
 
 
 </body>
