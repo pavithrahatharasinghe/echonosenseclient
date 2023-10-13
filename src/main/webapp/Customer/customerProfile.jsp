@@ -210,7 +210,7 @@
         };
 
         // Replace 'vucurl' with the appropriate API endpoint
-        const vucurl = `http://localhost:8080/echonosenserest_war_exploded/api/users/${userId}`;
+        const vucurl = "http://localhost:8080/echonosenserest_war_exploded/api/users/"+ userId +'/details';
         fetch(vucurl, options)
             .then(response => {
                 if (response.ok) {

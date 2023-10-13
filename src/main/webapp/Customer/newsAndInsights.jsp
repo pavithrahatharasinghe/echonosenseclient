@@ -93,7 +93,7 @@
     fetchNewsData();
     function populateCoinSelection() {
         // Replace 'coinEndpoint' with your actual API endpoint for coin names
-        const coinEndpoint = 'http://localhost:8080/echonosenserestnew_war_exploded/api/coins';
+        const coinEndpoint = 'http://localhost:8080/echonosenserest_war_exploded/api/coins';
 
         fetch(coinEndpoint)
             .then(response => response.json())

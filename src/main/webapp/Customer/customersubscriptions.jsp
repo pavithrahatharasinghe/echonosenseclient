@@ -132,9 +132,9 @@
 
     // Call the functions to fetch and render data when the page loads
     (async () => {
-        const historyEndpoint = 'http://localhost:8080/echonosenserestnew_war_exploded/api/payments';
-        const servicesEndpoint = 'http://localhost:8080/echonosenserestnew_war_exploded/api/subscriptions';
-        const subscriptionEndpoint = 'http://localhost:8080/echonosenserestnew_war_exploded/api/subscriptions';
+        const historyEndpoint = 'http://localhost:8080/echonosenserest_war_exploded/api/payments';
+        const servicesEndpoint = 'http://localhost:8080/echonosenserest_war_exploded/api/subscriptions';
+        const subscriptionEndpoint = 'http://localhost:8080/echonosenserest_war_exploded/api/subscriptions';
 
         const paymentData = await fetchData(historyEndpoint);
         const servicesData = await fetchData(servicesEndpoint);
