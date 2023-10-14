@@ -120,25 +120,27 @@ document.getElementById("addCoinBtn").addEventListener("click", function(event) 
 
     fetch('http://localhost:8080/echonosenserest_war_exploded/api/coins', {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(coinData)
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
+
+        .then(response => {
+            if (response.status === 201) { // 201 Created status code
                 alert("Coin added successfully!");
                 refreshCoinTable();
+            } else if (response.status === 500) { // 500 Internal Server Error status code
+                alert("Failed to add the coin. Internal server error.");
             } else {
-                alert(data.message);
+                alert("An error occurred while adding the coin.");
             }
         })
         .catch(error => {
             console.error('Error:', error);
             alert('An error occurred while adding the coin.');
         });
+
 });
 
 // Update Coin Script

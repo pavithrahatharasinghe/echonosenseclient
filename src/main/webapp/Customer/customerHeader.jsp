@@ -43,6 +43,8 @@
 <html>
 <head>
     <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <meta charset="utf-8"/>
         <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
         <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
