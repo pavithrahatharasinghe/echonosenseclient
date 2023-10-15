@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.Properties" %>
 <%@ page import="java.io.FileInputStream" %>
-
 <%@ page import="java.io.BufferedReader" %>
 <%@ page import="java.io.InputStreamReader" %>
 <%
@@ -47,71 +46,114 @@
         e.printStackTrace();
     }
 %>
-<jsp:include page="customerHeader.jsp" />
+
+<jsp:include page="customerHeader.jsp"/>
 
 <div class="wrapper">
-    <jsp:include page="customerSidebar.jsp" />
+    <jsp:include page="customerSidebar.jsp"/>
     <div class="main-panel">
         <!-- Include the navbar -->
-        <jsp:include page="customerNavbar.jsp" />
+        <jsp:include page="customerNavbar.jsp"/>
 
         <div class="content">
             <div class="container-fluid">
-                <!-- View and Update Personal Details -->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">My Profile</h4>
-                        </div>
-                        <div class="card-body">
-                            <form id="updateProfileForm">
-                                <div class="form-group">
-                                    <label>First Name</label>
-                                    <input type="text" required class="form-control" placeholder="First Name" name="firstName">
+                <div class="row"> <!-- Added a row for alignment -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">My Details</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-body">
+                                    <form id="updateProfileForm">
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input type="text" required class="form-control" placeholder="First Name"
+                                                   name="firstName">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Last Name</label>
+                                            <input type="text" required class="form-control" placeholder="Last Name"
+                                                   name="lastName">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="email" required class="form-control" placeholder="Email"
+                                                   name="email">
+                                        </div>
+                                        <!-- Add a hidden input for userId -->
+                                        <input type="hidden" name="userId" value="1">
+                                        <button id="updateProfileBtn" type="submit" class="btn btn-primary">Update
+                                            Profile
+                                        </button>
+                                    </form>
                                 </div>
-                                <div class="form-group">
-                                    <label>Last Name</label>
-                                    <input type="text" required class="form-control" placeholder="Last Name" name="lastName">
-                                </div>
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" required class="form-control" placeholder="Email" name="email">
-                                </div>
-                                <!-- Add a hidden input for userId -->
-                                <input type="hidden" name="userId" value="1">
-                                <button id="updateProfileBtn" type="submit" class="btn btn-primary">Update Profile</button>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Change Password</h4>
-                        </div>
-                        <div class="card-body">
-                            <form id="updatePasswordForm">
-                                <div class="form-group">
-                                    <label for="currentPassword">Current Password</label>
-                                    <input type="password" required class="form-control" id="currentPassword" name="currentPassword">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Change Password</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-body">
+                                    <form id="updatePasswordForm">
+                                        <div class="form-group">
+                                            <label for="currentPassword">Current Password</label>
+                                            <input type="password" required class="form-control" id="currentPassword"
+                                                   name="currentPassword">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="newPassword">New Password</label>
+                                            <input type="password" required class="form-control" id="newPassword"
+                                                   name="newPassword">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="confirmPassword">Confirm New Password</label>
+                                            <input type="password" required class="form-control" id="confirmPassword"
+                                                   name="confirmPassword">
+                                        </div>
+                                        <button id="updatePasswordBtn" type="submit" class="btn btn-primary">Update
+                                            Password
+                                        </button>
+                                    </form>
                                 </div>
-                                <div class="form-group">
-                                    <label for="newPassword">New Password</label>
-                                    <input type="password" required class="form-control" id="newPassword" name="newPassword">
-                                </div>
-                                <div class="form-group">
-                                    <label for="confirmPassword">Confirm New Password</label>
-                                    <input type="password" required class="form-control" id="confirmPassword" name="confirmPassword">
-                                </div>
-                                <button id="updatePasswordBtn" type="submit" class="btn btn-primary">Update Password</button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Account Deletion Info Card -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Delete Account</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>
+                                    Click <strong>REQUEST ACCOUNT DELETE</strong> to start the process of permanently
+                                    deleting your account including all personal information, purchases, and account.
+                                    Once your account is deleted, your wallet balance will be permanently deleted as
+                                    well.
+                                </p>
+                                <p>
+                                    If you request to delete your account, your account will be deleted in 14 days.
+                                    During this time, you can login to reactivate your account, which will cancel your
+                                    deletion. After 14 days deletion will be irreversible.
+                                </p>
+                                <button class="btn btn-danger" onclick="requestAccountDeletion()">DELETE ACCOUNT
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
-
-
 
 <script>
     // Function to handle the form submission for updating the password
@@ -135,7 +177,7 @@
             newPassword: newPassword
         };
 
-        sendpw =  newPassword;
+        sendpw = newPassword;
 
         const options = {
             method: "PUT",
@@ -174,7 +216,6 @@
 </script>
 
 
-
 <script>
     const userDetails = <%= userDetails %>;
 
@@ -210,7 +251,7 @@
         };
 
         // Replace 'vucurl' with the appropriate API endpoint
-        const vucurl = "http://localhost:8080/echonosenserest_war_exploded/api/users/"+ userId +'/details';
+        const vucurl = "http://localhost:8080/echonosenserest_war_exploded/api/users/" + userId + '/details';
         fetch(vucurl, options)
             .then(response => {
                 if (response.ok) {
@@ -226,6 +267,15 @@
 
     // Populate the form with user details
     window.addEventListener('load', populateUserDetails);
+
+
+    function requestAccountDeletion() {
+        const confirmation = confirm("Are you sure you want to request account deletion? This action is irreversible after 14 days.");
+        if (confirmation) {
+            // Add your logic here to handle account deletion request
+            alert("Account deletion requested. Please check your email for further instructions.");
+        }
+    }
 </script>
 
-<jsp:include page="customerFooter.jsp" />
+<jsp:include page="customerFooter.jsp"/>

@@ -59,13 +59,13 @@
             </li>
             <li class="nav-item <%= currentPage.equals("coinPredictions.jsp") ? "active" : "" %>">
                 <a class="nav-link" href="coinPredictions.jsp">
-                    <i class="nc-icon nc-lightbulb-24"></i>
+                    <i class="nc-icon nc-money-coins"></i>
                     <p>Coin Predictions</p>
                 </a>
             </li>
             <li class="nav-item <%= currentPage.equals("interactWithSentimentModel.jsp") ? "active" : "" %>">
                 <a class="nav-link" href="interactWithSentimentModel.jsp">
-                    <i class="nc-icon nc-lightbulb-24"></i>
+                    <i class="nc-icon nc-paper-2"></i>
                     <p>Check Your News</p>
                 </a>
             </li>

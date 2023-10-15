@@ -3,6 +3,10 @@
 <div class="wrapper">
     <jsp:include page="customerSidebar.jsp" />
     <div class="main-panel">
+        <!-- Navbar -->
+        <jsp:include page="customerNavbar.jsp"/>
+        <!-- End Navbar -->
+
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -15,10 +19,8 @@
                                 <table class="table table-hover table-striped">
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>Message</th>
                                         <th>Date</th>
-
-                                        <th>Content</th>
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
@@ -46,10 +48,10 @@
                                     $('#notificationTableBody').empty();
                                     $.each(data, function (index, notification) {
                                         const row = '<tr>' +
-                                            '<td>' + notification.notificationID + '</td>' +
+                                            '<td>' + notification.message + '</td>' +
                                             '<td>' + notification.date + '</td>' +
 
-                                            '<td>' + notification.message + '</td>' +
+
                                             '<td>' +
                                             '<button type="button" class="btn btn-danger delete-notification-button">Delete</button>' +
                                             '</td>' +

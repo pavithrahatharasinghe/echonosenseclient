@@ -20,7 +20,7 @@
                 <form id="sentimentAnalysisForm">
                   <div class="form-group">
                     <label for="text">Enter Text</label>
-                    <textarea class="form-control" id="text" name="text" rows="3" required></textarea>
+                    <textarea style="height: 500px" class="form-control" id="text" name="text" rows="3" required></textarea>
                   </div>
                   <button type="submit" class="btn btn-primary">Analyze Sentiment</button>
                 </form>

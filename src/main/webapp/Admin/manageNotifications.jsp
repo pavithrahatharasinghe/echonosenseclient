@@ -256,7 +256,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Message</th>
-                                            <th>Senet Date</th>
+                                            <th>Sent Date</th>
                                             <th>updated At</th>
                                             <th>Action</th>
                                         </tr>

@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <jsp:include page="customerHeader.jsp"/>
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <body>
 <div class="wrapper">
     <jsp:include page="customerSidebar.jsp"/> <!-- This will include the sidebar -->
@@ -15,222 +17,90 @@
         <!-- End Navbar -->
         <div class="content">
             <div class="container-fluid">
+                <!-- BTC Price Chart for Last 7 Days -->
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="card ">
-                            <div class="card-header ">
-                                <h4 class="card-title">Email Statistics</h4>
-                                <p class="card-category">Last Campaign Performance</p>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header" style="background-color: #f5f5f5;">
+                                <h4 class="card-title">BTC Price Chart (Last 7 Days)</h4>
                             </div>
-                            <div class="card-body ">
-                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-                                <div class="legend">
-                                    <i class="fa fa-circle text-info"></i> Open
-                                    <i class="fa fa-circle text-danger"></i> Bounce
-                                    <i class="fa fa-circle text-warning"></i> Unsubscribe
-                                </div>
-                                <hr>
-                                <div class="stats">
-                                    <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card ">
-                            <div class="card-header ">
-                                <h4 class="card-title">Users Behavior</h4>
-                                <p class="card-category">24 Hours performance</p>
-                            </div>
-                            <div class="card-body ">
-                                <div id="chartHours" class="ct-chart"></div>
-                            </div>
-                            <div class="card-footer ">
-                                <div class="legend">
-                                    <i class="fa fa-circle text-info"></i> Open
-                                    <i class="fa fa-circle text-danger"></i> Click
-                                    <i class="fa fa-circle text-warning"></i> Click Second Time
-                                </div>
-                                <hr>
-                                <div class="stats">
-                                    <i class="fa fa-history"></i> Updated 3 minutes ago
-                                </div>
+                            <div class="card-body">
+                                <canvas id="btcPriceChart"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- Top 5 Coins Card -->
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="card ">
-                            <div class="card-header ">
-                                <h4 class="card-title">2017 Sales</h4>
-                                <p class="card-category">All products including Taxes</p>
+                        <div class="card">
+                            <div class="card-header" style="background-color: #f5f5f5;">
+                                <h4 class="card-title">Top 5 Coins</h4>
                             </div>
-                            <div class="card-body ">
-                                <div id="chartActivity" class="ct-chart"></div>
-                            </div>
-                            <div class="card-footer ">
-                                <div class="legend">
-                                    <i class="fa fa-circle text-info"></i> Tesla Model S
-                                    <i class="fa fa-circle text-danger"></i> BMW 5 Series
-                                </div>
-                                <hr>
-                                <div class="stats">
-                                    <i class="fa fa-check"></i> Data information certified
-                                </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>Bitcoin (BTC) - $60,000</li>
+                                    <li>Ethereum (ETH) - $4,000</li>
+                                    <li>Cardano (ADA) - $2.5</li>
+                                    <li>Binance Coin (BNB) - $450</li>
+                                    <li>Solana (SOL) - $150</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <!-- Crypto News Highlights Card -->
+                <div class="row">
                     <div class="col-md-6">
-                        <div class="card  card-tasks">
-                            <div class="card-header ">
-                                <h4 class="card-title">Tasks</h4>
-                                <p class="card-category">Backend development</p>
+                        <div class="card">
+                            <div class="card-header" style="background-color: #f5f5f5;">
+                                <h4 class="card-title">Crypto News Highlights</h4>
                             </div>
-                            <div class="card-body ">
-                                <div class="table-full-width">
-                                    <table class="table">
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task"
-                                                        class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove"
-                                                        class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                               checked>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task"
-                                                        class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove"
-                                                        class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                               checked>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Flooded: One year later, assessing what was lost and what was found when
-                                                a ravaging rain swept through metro Detroit
-                                            </td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task"
-                                                        class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove"
-                                                        class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task"
-                                                        class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove"
-                                                        class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Read "Following makes Medium better"</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task"
-                                                        class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove"
-                                                        class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                               disabled>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Unfollow 5 enemies from twitter</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task"
-                                                        class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove"
-                                                        class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="card-body">
+                                <strong>Latest News:</strong> Bitcoin hits an all-time high!<br>
+                                <strong>Trending News:</strong> Ethereum 2.0 launch successful.<br>
+                                <strong>News Categories:</strong> Bitcoin, Ethereum, Altcoins<br>
                             </div>
-                            <div class="card-footer ">
-                                <hr>
-                                <div class="stats">
-                                    <i class="now-ui-icons loader_refresh spin"></i> Updated 3 minutes ago
-                                </div>
+                        </div>
+                    </div>
+                    <!-- Crypto Price Tracker Card -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header" style="background-color: #f5f5f5;">
+                                <h4 class="card-title">Crypto Price Tracker</h4>
+                            </div>
+                            <div class="card-body">
+                                <strong>Favorite Cryptos:</strong> BTC, ETH, ADA<br>
+                                <strong>Market Overview:</strong> Market Cap: $2T, Volume: $50B, BTC Dominance: 45%<br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Alerts and Notifications Card -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header" style="background-color: #f5f5f5;">
+                                <h4 class="card-title">Alerts and Notifications</h4>
+                            </div>
+                            <div class="card-body">
+                                <strong>Price Alerts:</strong> BTC reached $60,000!<br>
+                                <strong>News Alerts:</strong> Major update on Ripple lawsuit.<br>
+                                <strong>Account Activity:</strong> New login from Paris.<br>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Recommendations Card -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header" style="background-color: #f5f5f5;">
+                                <h4 class="card-title">Recommendations</h4>
+                            </div>
+                            <div class="card-body">
+                                <strong>Article Recommendations:</strong> "The future of DeFi"<br>
+                                <strong>Crypto Recommendations:</strong> Consider looking into Cardano (ADA)<br>
                             </div>
                         </div>
                     </div>
@@ -240,6 +110,36 @@
     </div>
 </div>
 
+</div>
+</div>
+</div>
+
+<script>
+    // Dummy data for BTC price chart
+    const btcPrices = [57000, 58000, 59000, 60000, 61000, 62000, 63000];
+    const days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
+
+    const ctx = document.getElementById('btcPriceChart').getContext('2d');
+    const btcChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: days,
+            datasets: [{
+                label: 'BTC Price',
+                data: btcPrices,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                fill: false
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
 
 </body>
 <jsp:include page="customerFooter.jsp"/>

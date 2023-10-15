@@ -6,12 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="customerHeader.jsp" />
+<jsp:include page="customerHeader.jsp"/>
 
 
 <body>
 <div class="wrapper">
-    <jsp:include page="customerSidebar.jsp" />
+    <jsp:include page="customerSidebar.jsp"/>
     <div class="main-panel">
         <!-- Navbar -->
         <jsp:include page="customerNavbar.jsp"/>
@@ -49,95 +49,25 @@
                         </div>
                     </div>
 
+                    <!-- Predicted Prices -->
                     <div class="col-md-6">
-                        <!-- Predicted Prices -->
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Predicted Prices</h4>
                             </div>
                             <div class="card-body" id="predictedPrices">
-                                <!-- Populate with predicted prices for selected coin -->
+                                <!-- Content will be populated dynamically -->
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Related News Section -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Related News</h4>
-                                <!-- News Impact Filter -->
-                                <select id="newsImpactFilter">
-                                    <option value="all">All</option>
-                                    <option value="good">Good</option>
-                                    <option value="neutral">Neutral</option>
-                                    <option value="bad">Bad</option>
-                                </select>
-                            </div>
-                            <div class="card-body" id="newsSection">
-                                <!-- Populate with news related to the selected coin -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <div style="width: 80%; margin: auto;">
                     <!-- Create a canvas element to render the chart -->
                     <canvas id="historicalPriceChart" width="400" height="200"></canvas>
                 </div>
 
-                <script>
-                    // Function to fetch data from the specified endpoint
-                    function fetchData() {
-                        const endpoint = 'http://localhost:8080/echonosenserest_war_exploded/api/prices/coin/LTCUSDT';
-
-                        fetch(endpoint)
-                            .then(response => response.json())
-                            .then(data => {
-                                const dates = data.map(entry => entry.fetchTime); // Use the correct property name
-                                const prices = data.map(entry => entry.price); // Use the correct property name
-
-                                // Get a reference to the chart canvas
-                                const historicalPriceChart = document.getElementById('historicalPriceChart').getContext('2d');
-
-                                // Create a new Chart.js chart
-                                new Chart(historicalPriceChart, {
-                                    type: 'line',
-                                    data: {
-                                        labels: dates,
-                                        datasets: [{
-                                            label: 'Historical Prices',
-                                            data: prices,
-                                            backgroundColor: "rgba(75, 192, 192, 0.2)",
-                                            borderColor: "rgba(75, 192, 192, 1)",
-                                            borderWidth: 1,
-                                        }],
-                                    },
-                                    options: {
-                                        scales: {
-                                            x: {
-                                                title: {
-                                                    display: true,
-                                                    text: 'Fetch Time',
-                                                },
-                                            },
-                                            y: {
-                                                title: {
-                                                    display: true,
-                                                    text: 'Price',
-                                                },
-                                            },
-                                        },
-                                    },
-                                });
-                            })
-                            .catch(error => console.error('Error fetching data: ', error));
-                    }
-
-                    // Call the fetchData function on page load
-                    window.addEventListener('load', fetchData);
-                </script>
 
             </div>
         </div>
@@ -145,6 +75,7 @@
 </div>
 
 <script>
+
     // Function to populate the coin selector dropdown
     function populateCoinSelector() {
         const coinSelector = document.getElementById('coinSelector');
@@ -161,75 +92,63 @@
                 // Create an option for each coin
                 data.forEach(coin => {
                     const option = document.createElement('option');
-                    option.value = coin.name;  // Use the coin's name
+                    option.value = coin.symbol;  // Use the coin's symbol
                     option.textContent = coin.name;
                     coinSelector.appendChild(option);
                 });
             })
             .catch(error => console.error('Error fetching coin names: ', error));
 
-        // Add an event listener to the coin selector
-        coinSelector.addEventListener('change', function () {
-            const selectedCoinName = this.value;
-            // Call a function to update the table based on the selected coin name
-            updateTable(selectedCoinName);
-        });
+
     }
 
     // Call the function to populate the coin selector on page load
     window.addEventListener('load', populateCoinSelector);
+    coinSelector.addEventListener('change', function () {
+        const selectedCoinSymbol = this.value;
+        updateHistoricalPriceChart(selectedCoinSymbol);
 
-    // Function to update the table based on the selected coin name
-    function updateTable(selectedCoinName) {
-        // Encode the coin name for URL
-        const encodedCoinName = encodeURIComponent(selectedCoinName);
+    });
 
-        console.log(encodedCoinName)
-        // Construct the price endpoint URL with the selected coin's name
-        const priceEndpoint = `http://localhost:8080/echonosenserest_war_exploded/api/prices/coin/LTCUSDT`;
-console.log(priceEndpoint)
-        // Inside your fetch block where you get price data
-        fetch(priceEndpoint)
-            .then(response => response.json())
-            .then(data => {
-                console.log('Received price data:', data);
-                // Assume that 'data' contains an array of price objects with 'date' and 'price' properties.
-                // Extract the 'date' and 'price' values from the 'data' array
-                const dates = data.map(entry => entry.fetch_time); // Use the correct property name
-                const prices = data.map(entry => entry.price); // Use the correct property name
+    // Function to update the historical price chart
+    function updateHistoricalPriceChart(coinSymbol) {
 
-                // Get a reference to the chart canvas
-                const historicalPriceChart = document.getElementById('historicalPriceChart').getContext('2d');
 
-                // Create a new Chart.js chart or update an existing one
-                if (window.myLineChart) {
-                    // Update the existing chart
-                    window.myLineChart.data.labels = dates;
-                    window.myLineChart.data.datasets[0].data = prices;
-                    window.myLineChart.update();
-                } else {
-                    // Create a new chart
-                    window.myLineChart = new Chart(historicalPriceChart, {
+        var selectdCoin = coinSymbol + 'USDT'
+        // Construct the URL based on the selected coin symbol
+        const url = `http://localhost:8080/echonosenserest_war_exploded/api/prices/coin/` + selectdCoin;
+
+
+        // Function to fetch data from the specified endpoint
+        function fetchData() {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const dates = data.map(entry => entry.fetchTime); // Use the correct property name
+                    const prices = data.map(entry => entry.price); // Use the correct property name
+
+                    // Get a reference to the chart canvas
+                    const historicalPriceChart = document.getElementById('historicalPriceChart').getContext('2d');
+
+                    // Create a new Chart.js chart
+                    new Chart(historicalPriceChart, {
                         type: 'line',
                         data: {
                             labels: dates,
                             datasets: [{
                                 label: 'Historical Prices',
                                 data: prices,
-                                borderColor: 'blue',
-                                fill: false,
-                            }]
+                                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                                borderColor: "rgba(75, 192, 192, 1)",
+                                borderWidth: 1,
+                            }],
                         },
                         options: {
                             scales: {
                                 x: {
-                                    type: 'time',
-                                    time: {
-                                        unit: 'day', // Adjust the time unit as needed
-                                    },
                                     title: {
                                         display: true,
-                                        text: 'Date',
+                                        text: 'Fetch Time',
                                     },
                                 },
                                 y: {
@@ -241,69 +160,59 @@ console.log(priceEndpoint)
                             },
                         },
                     });
-                }
-            })
-            .catch(error => console.error('Error fetching prices: ', error));
-
-
-
-// Function to update the table based on the selected coin name
-        function updateTable(selectedCoinName) {
-            // Simulated demo data (replace this with your actual data)
-            const demoDates = ["2023-10-01", "2023-10-02", "2023-10-03", "2023-10-04", "2023-10-05"];
-            const demoPrices = [100, 110, 120, 115, 125];
-
-            // Get a reference to the chart canvas
-            const historicalPriceChart = document.getElementById('historicalPriceChart').getContext('2d');
-
-            // Create a new Chart.js chart or update an existing one
-            if (window.myLineChart) {
-                // Update the existing chart
-                window.myLineChart.data.labels = demoDates;
-                window.myLineChart.data.datasets[0].data = demoPrices;
-                window.myLineChart.update();
-            } else {
-                // Create a new chart
-                window.myLineChart = new Chart(historicalPriceChart, {
-                    type: 'line',
-                    data: {
-                        labels: demoDates,
-                        datasets: [{
-                            label: 'Historical Prices',
-                            data: demoPrices,
-                            borderColor: 'blue',
-                            fill: false,
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            x: {
-                                type: 'time',
-                                time: {
-                                    unit: 'day', // Adjust the time unit as needed
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Date',
-                                },
-                            },
-                            y: {
-                                title: {
-                                    display: true,
-                                    text: 'Price',
-                                },
-                            },
-                        },
-                    },
-                });
-            }
+                })
+                .catch(error => console.error('Error fetching data: ', error));
         }
 
+        // Call the fetchData function when a new coin is selected
+        fetchData();
+    }
+</script>
 
+<script>
+    // Function to update the Predicted Prices table with data from the API
+    function updatePredictedPricesTable(coinSymbol) {
+        // Replace 'coinPredictionEndpoint' with your actual API endpoint for coin predictions
+        const selectdCoin = coinSymbol + 'USDT';
+        const coinPredictionEndpoint = 'http://localhost:8080/echonosenserest_war_exploded/api/coin-predictions/' + selectdCoin;
+
+        fetch(coinPredictionEndpoint)
+            .then(response => response.json())
+            .then(data => {
+                // Clear existing content in the predictedPrices div
+                const predictedPricesDiv = document.getElementById('predictedPrices');
+                predictedPricesDiv.innerHTML = '';
+
+                if (data.id !== undefined) {
+                    // Create a table to display the prediction data
+                    const table = document.createElement('table');
+                    table.className = 'table table-striped';
+
+                    // Create a table header row
+                    const headerRow = table.insertRow(0);
+                    headerRow.innerHTML = '<th>Predicted Close</th><th>Prediction Date</th>';
+
+                    // Create a table data row using string concatenation
+                    const dataRow = table.insertRow(1);
+                    dataRow.innerHTML = '<td>' + data.predictedClose + '</td><td>' + data.predictionDate + '</td>';
+
+                    // Append the table to the predictedPrices div
+                    predictedPricesDiv.appendChild(table);
+                } else {
+                    // Handle the case when there are no predictions for the selected coin
+                    predictedPricesDiv.innerHTML = 'No predictions found for the selected coin.';
+                }
+            })
+            .catch(error => console.error('Error fetching coin predictions: ', error));
     }
 
-
+    // Event listener to update the Predicted Prices table when a coin is selected
+    coinSelector.addEventListener('change', function () {
+        const selectedCoinSymbol = this.value;
+        updatePredictedPricesTable(selectedCoinSymbol);
+        updateHistoricalPriceChart(selectedCoinSymbol); // Optionally update historical price chart
+    });
 </script>
 
 </body>
-<jsp:include page="customerFooter.jsp" />
+<jsp:include page="customerFooter.jsp"/>

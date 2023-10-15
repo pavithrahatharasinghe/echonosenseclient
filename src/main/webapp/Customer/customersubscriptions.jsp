@@ -10,48 +10,11 @@
         <div class="content">
             <div class="container-fluid">
                 <!-- Offered Services and Products -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Offered Services and Products</h4>
-                            </div>
-                            <div class="card-body">
-                                <ul id="servicesList">
-                                    <!-- Services and products will be populated here -->
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row" id="servicesCards">
+                    <!-- Services and products cards will be populated here -->
                 </div>
-                <!-- Subscription Details -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Subscription Details</h4>
-                            </div>
-                            <div class="card-body table-full-width table-responsive">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Status</th>
-                                        <th>Amount</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="subscriptionTableBody">
-                                    <!-- Subscription data will be populated here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
 
                 <!-- Subscription History -->
                 <div class="row">
@@ -82,6 +45,8 @@
     </div>
 </div>
 
+
+
 <!-- ... your existing JSP code ... -->
 
 <script>
@@ -98,6 +63,48 @@
             console.error('Error fetching data:', error);
             return null;
         }
+    }
+
+    // Function to render the services and products as cards
+    function renderServiceCards(data) {
+        const servicesCardsContainer = document.getElementById('servicesCards');
+        servicesCardsContainer.innerHTML = '';
+
+        data.forEach(service => {
+            const cardCol = document.createElement('div');
+            cardCol.className = 'col-md-4';
+
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const cardHeader = document.createElement('div');
+            cardHeader.className = 'card-header';
+            cardHeader.textContent = service.planName;
+
+            const cardBodyDuration = document.createElement('div');
+            cardBodyDuration.className = 'card-body';
+            cardBodyDuration.textContent = 'Duration: ' + service.duration;
+
+            const cardBodyPrice = document.createElement('div');
+            cardBodyPrice.className = 'card-body';
+            cardBodyPrice.textContent = 'Price: $' + service.price;
+
+            const purchaseButton = document.createElement('button');
+            purchaseButton.className = 'btn btn-primary';
+            purchaseButton.textContent = 'Purchase';
+            purchaseButton.onclick = function() {
+                // Open the payment page for the selected service
+                window.location.href = '/echonosenseclient_war_exploded/Customer/payment.jsp?planID=' + service.id; // Assuming you have a payment page that accepts a serviceId parameter
+            };
+
+            card.appendChild(cardHeader);
+            card.appendChild(cardBodyDuration);
+            card.appendChild(cardBodyPrice);
+            card.appendChild(purchaseButton);
+            cardCol.appendChild(card);
+            servicesCardsContainer.appendChild(cardCol);
+        });
+
     }
 
     // Function to render data in a table
@@ -119,16 +126,7 @@
             '<td>Payment ID: ' + payment.paymentID + '</td>';
     }
 
-    // Function to render subscription table rows using string concatenation
-    function renderSubscriptionRow(subscription) {
-        return '<td>' + subscription.subscriptionID + '</td>' +
-            '<td>' + subscription.planName + '</td>' +
-            '<td>' + subscription.startDate + '</td>' +
-            '<td>' + subscription.endDate + '</td>' +
-            '<td>' + subscription.status + '</td>' +
-            '<td>$' + subscription.price + '</td>' +
-            '<td><button onclick="performSubscriptionAction(' + subscription.subscriptionID + ')">Action</button></td>';
-    }
+
 
     // Call the functions to fetch and render data when the page loads
     (async () => {
@@ -145,13 +143,7 @@
         }
 
         if (servicesData) {
-            const servicesList = document.getElementById('servicesList');
-            servicesList.innerHTML = '';
-            servicesData.forEach(subscription => {
-                const listItem = document.createElement('li');
-                listItem.textContent = subscription.planName + ' - $' + subscription.price;
-                servicesList.appendChild(listItem);
-            });
+            renderServiceCards(servicesData);
         }
 
         if (subscriptionData) {
@@ -161,7 +153,8 @@
 </script>
 
 
-<!-- ... your existing JSP code ... -->
+
+
 
 <jsp:include page="customerFooter.jsp" />
 </body>

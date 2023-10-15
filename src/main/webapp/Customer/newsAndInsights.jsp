@@ -151,6 +151,9 @@
                                     </select>
 
                                     <script>
+
+                                        let coinData = [];
+
                                         function populateCoinSelection() {
                                             // Replace 'coinEndpoint' with your actual API endpoint for coin names
                                             const coinEndpoint = 'http://localhost:8080/echonosenserest_war_exploded/api/coins';
@@ -158,6 +161,7 @@
                                             fetch(coinEndpoint)
                                                 .then(response => response.json())
                                                 .then(data => {
+                                                    coinData = data;
                                                     const coinSelection = document.getElementById('coinSelection');
 
                                                     // Clear existing options
@@ -172,7 +176,7 @@
                                                     // Add options for each coin name
                                                     data.forEach(coin => {
                                                         const option = document.createElement('option');
-                                                        option.value = coin.id;  // Use the coin's ID or appropriate identifier
+                                                        option.value = coin.symbol;  // Use the coin's ID or appropriate identifier
                                                         option.textContent = coin.name;
                                                         coinSelection.appendChild(option);
                                                     });
@@ -211,21 +215,18 @@
 </div>
 
 <script>
-    document.getElementById('searchButton').addEventListener('click', function() {
+        document.getElementById('searchButton').addEventListener('click', function() {
         const coinDropdown = document.getElementById('coinSelection');
         const impactDropdown = document.getElementById('impactSelection');
 
-        const coin = coinDropdown.options[coinDropdown.selectedIndex].value;
+        const coinId = coinDropdown.options[coinDropdown.selectedIndex].value;
         const impact = impactDropdown.options[impactDropdown.selectedIndex].value;
 
-// Concatenate coin and impact into a single string
-        const message = "Coin: " + coin + "\nImpact: " + impact;
-
-// Display the message in an alert
+             // Display the message in an alert
 
 
-// Construct the URL based on the selected filters
-        var url = "http://localhost:8080/echonosenserest_war_exploded/api/news/coin/" + "LTC" + "/impact/" + "Positive";
+        // Construct the URL based on the selected filters
+        var url = "http://localhost:8080/echonosenserest_war_exploded/api/news/coin/" + coinId + "/impact/" + impact;
 
 
         $.ajax({
@@ -250,7 +251,7 @@
 
                     const cardContent = `
         <article class="news-card">
-            <div class="news-card__image" id="newsImage"></div>
+            <div class="news-card__image" id="newsImage" style="background-image: url('` + newsItem.imageUrl + `');" ></div>
 
             <div class="news-card__info">
                 <h5>` + newsItem.title + `</h5>
