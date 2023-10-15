@@ -31,6 +31,10 @@
                                     <tbody id="customerTableBody">
                                     </tbody>
                                 </table>
+                                <div class="pagination-controls">
+                                    <button onclick="previousPage()">Previous</button>
+                                    <button onclick="nextPage()">Next</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -40,8 +44,11 @@
                     <!-- ... (previous code) -->
 
                     <script>
+                        let currentPage = 1; // Start on page 1
+                        const itemsPerPage = 20; // Display 20 items per page
+
                         function refreshTable() {
-                            const url = 'http://localhost:8080/your_news_endpoint'; // Replace with your actual news endpoint
+                            const url = 'http://localhost:8080/echonosenserest_war_exploded/api/news';
                             const options = {
                                 method: 'GET',
                                 headers: {
@@ -53,10 +60,15 @@
                                 .then(response => response.json())
                                 .then(data => {
                                     console.log(data);
-                                    // Clear the table body
                                     $('#customerTableBody').empty();
-                                    // Populate the table with the data
-                                    $.each(data, function (index, news) {
+
+                                    // Calculate start and end indices for slicing the data array
+                                    const startIndex = (currentPage - 1) * itemsPerPage;
+                                    const endIndex = startIndex + itemsPerPage;
+
+                                    const pageData = data.slice(startIndex, endIndex);
+
+                                    $.each(pageData, function (index, news) {
                                         const row = '<tr>' +
                                             '<td>' + news.newsID + '</td>' +
                                             '<td>' + news.title + '</td>' +
@@ -72,6 +84,20 @@
                                 })
                                 .catch(error => console.error(error));
                         }
+
+                        function nextPage() {
+                            currentPage++;
+                            refreshTable();
+                        }
+
+                        function previousPage() {
+                            if (currentPage > 1) {
+                                currentPage--;
+                                refreshTable();
+                            }
+                        }
+
+                        refreshTable();
 
                     </script>
 

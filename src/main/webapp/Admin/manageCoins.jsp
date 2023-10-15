@@ -203,7 +203,10 @@ function refreshCoinTable() {
                 row.insertCell(2).textContent = coin.symbol;
                 row.insertCell(3).textContent = coin.description;
                 row.insertCell(4).textContent = coin.status;
-                row.insertCell(5).textContent = coin.imageUrl;
+
+                let imageUrlCell = row.insertCell(5);
+                imageUrlCell.textContent = coin.imageUrl;
+                imageUrlCell.classList.add("overflow-hidden");
 
                 let actionCell = row.insertCell(6);
                 let toggleButton = document.createElement("button");

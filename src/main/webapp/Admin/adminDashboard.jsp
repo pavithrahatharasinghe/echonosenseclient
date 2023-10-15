@@ -9,221 +9,80 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
+                    <!-- Left Side: User Statistics -->
                     <div class="col-md-4">
-                        <div class="card ">
-                            <div class="card-header ">
-                                <h4 class="card-title">Email Statistics</h4>
-                                <p class="card-category">Last Campaign Performance</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">User Statistics</h4>
                             </div>
-                            <div class="card-body ">
-                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-                                <div class="legend">
-                                    <i class="fa fa-circle text-info"></i> Open
-                                    <i class="fa fa-circle text-danger"></i> Bounce
-                                    <i class="fa fa-circle text-warning"></i> Unsubscribe
-                                </div>
-                                <hr>
-                                <div class="stats">
-                                    <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
-                                </div>
+                            <div class="card-body">
+                                <p>Total Users: <strong>1234</strong></p> <!-- Replace with dynamic data -->
+                                <p>New Users Today: <strong>12</strong></p> <!-- Replace with dynamic data -->
                             </div>
                         </div>
                     </div>
+                    <!-- Right Side: New Users in Past 7 Days Table -->
+
                     <div class="col-md-8">
-                        <div class="card ">
-                            <div class="card-header ">
-                                <h4 class="card-title">Users Behavior</h4>
-                                <p class="card-category">24 Hours performance</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">New Users in Past 7 Days</h4>
                             </div>
-                            <div class="card-body ">
-                                <div id="chartHours" class="ct-chart"></div>
-                            </div>
-                            <div class="card-footer ">
-                                <div class="legend">
-                                    <i class="fa fa-circle text-info"></i> Open
-                                    <i class="fa fa-circle text-danger"></i> Click
-                                    <i class="fa fa-circle text-warning"></i> Click Second Time
-                                </div>
-                                <hr>
-                                <div class="stats">
-                                    <i class="fa fa-history"></i> Updated 3 minutes ago
-                                </div>
+                            <div class="card-body">
+                                <!-- Placeholder for Chart.js -->
+                                <canvas id="newUsers7DaysChart"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
+                    <!-- Bottom Left: Total Income Charts -->
                     <div class="col-md-6">
-                        <div class="card ">
-                            <div class="card-header ">
-                                <h4 class="card-title">2017 Sales</h4>
-                                <p class="card-category">All products including Taxes</p>
+                        <!-- Last 7 Days Income -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Income in Last 7 Days</h4>
                             </div>
-                            <div class="card-body ">
-                                <div id="chartActivity" class="ct-chart"></div>
+                            <div class="card-body">
+                                <!-- Placeholder for Chart.js -->
+                                <canvas id="income7DaysChart"></canvas>
                             </div>
-                            <div class="card-footer ">
-                                <div class="legend">
-                                    <i class="fa fa-circle text-info"></i> Tesla Model S
-                                    <i class="fa fa-circle text-danger"></i> BMW 5 Series
-                                </div>
-                                <hr>
-                                <div class="stats">
-                                    <i class="fa fa-check"></i> Data information certified
-                                </div>
+                        </div>
+                        <!-- Last Month Income -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Income in Last Month</h4>
+                            </div>
+                            <div class="card-body">
+                                <!-- Placeholder for Chart.js -->
+                                <canvas id="incomeLastMonthChart"></canvas>
+                            </div>
+                        </div>
+                        <!-- Last Year Income -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Income in Last Year</h4>
+                            </div>
+                            <div class="card-body">
+                                <!-- Placeholder for Chart.js -->
+                                <canvas id="incomeLastYearChart"></canvas>
                             </div>
                         </div>
                     </div>
+                    <!-- Bottom Right: Suggested Content -->
                     <div class="col-md-6">
-                        <div class="card  card-tasks">
-                            <div class="card-header ">
-                                <h4 class="card-title">Tasks</h4>
-                                <p class="card-category">Backend development</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Suggested Content</h4>
                             </div>
-                            <div class="card-body ">
-                                <div class="table-full-width">
-                                    <table class="table">
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task"
-                                                        class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove"
-                                                        class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                               checked>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task"
-                                                        class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove"
-                                                        class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                               checked>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Flooded: One year later, assessing what was lost and what was found when
-                                                a ravaging rain swept through metro Detroit
-                                            </td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task"
-                                                        class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove"
-                                                        class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task"
-                                                        class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove"
-                                                        class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Read "Following makes Medium better"</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task"
-                                                        class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove"
-                                                        class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                               disabled>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Unfollow 5 enemies from twitter</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task"
-                                                        class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove"
-                                                        class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="card-footer ">
-                                <hr>
-                                <div class="stats">
-                                    <i class="now-ui-icons loader_refresh spin"></i> Updated 3 minutes ago
-                                </div>
+                            <div class="card-body">
+                                <p>Here are some suggestions for further insights:</p>
+                                <ul>
+                                    <li>Compare the income trends across different time frames.</li>
+                                    <li>Analyze the sources of income to identify the most profitable channels.</li>
+                                    <li>Forecast future income based on historical data.</li>
+                                    <li>Identify any seasonal trends in income.</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -232,7 +91,76 @@
         </div>
     </div>
 </div>
+<!-- Include Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Initialize Chart.js -->
+<script>
+    // Sample data for demonstration purposes
+    var daysLabels = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
+    var monthLabels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+    var yearLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    var income7DaysData = [12, 19, 3, 5, 2, 3, 7]; // Replace with dynamic data
+    var incomeLastMonthData = [50, 45, 60, 55]; // Replace with dynamic data
+    var incomeLastYearData = [600, 580, 620, 590, 610, 630, 640, 650, 660, 670, 680, 690]; // Replace with dynamic data
+
+    createLineChart('income7DaysChart', daysLabels, income7DaysData, 'Income in Last 7 Days');
+    createLineChart('incomeLastMonthChart', monthLabels, incomeLastMonthData, 'Income in Last Month');
+    createLineChart('incomeLastYearChart', yearLabels, incomeLastYearData, 'Income in Last Year');
+
+    function createLineChart(elementId, labels, data, label) {
+        var ctx = document.getElementById(elementId).getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
 
 
+    var daysLabels = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
+    var newUsers7DaysData = [5, 8, 10, 3, 7, 6, 4]; // Replace with dynamic data
+
+    createBarChart('newUsers7DaysChart', daysLabels, newUsers7DaysData, 'New Users');
+
+    function createBarChart(elementId, labels, data, label) {
+        var ctx = document.getElementById(elementId).getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+</script>
 </body>
 <jsp:include page="adminFooter.jsp"/>

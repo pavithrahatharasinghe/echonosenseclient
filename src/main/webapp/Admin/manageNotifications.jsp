@@ -6,9 +6,7 @@
         <!-- Navbar -->
         <jsp:include page="adminNavbar.jsp"/>
         <!-- End Navbar -->
-        <div class="main-panel">
-            <!-- Navbar -->
-            <!-- End Navbar -->
+
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -90,11 +88,35 @@
                                 fetch(vurl, options)
                                     .then(response => {
                                         if (response.ok) {
-                                            alert("Notification added successfully");
+
+
+                                            $.notify({
+                                                icon: "pe-7s-gift",
+                                                message: "Notification added successfully"
+                                            },{
+                                                type: 'success',
+                                                timer: 4000,
+                                                placement: {
+                                                    from: 'top',
+                                                    align: 'center'
+                                                }
+                                            });
                                             document.querySelector('#addNotificationForm').reset();
                                             refreshTable();
                                         } else {
-                                            alert("An error occurred while adding the notification. Please try again later.");
+
+
+                                            $.notify({
+                                                icon: "pe-7s-gift",
+                                                message: "An error occurred while adding the notification. Please try again later."
+                                            },{
+                                                type: 'danger',
+                                                timer: 4000,
+                                                placement: {
+                                                    from: 'top',
+                                                    align: 'center'
+                                                }
+                                            });
                                         }
                                     });
                             }
@@ -184,11 +206,35 @@
                                 fetch(vucurl + notificationId, options)
                                     .then(response => {
                                         if (response.ok) {
-                                            alert("Notification updated successfully");
+
+
+                                            $.notify({
+                                                icon: "pe-7s-gift",
+                                                message: "Notification updated successfully"
+                                            },{
+                                                type: 'success',
+                                                timer: 4000,
+                                                placement: {
+                                                    from: 'top',
+                                                    align: 'center'
+                                                }
+                                            });
                                             refreshTable();
                                             document.querySelector('form').reset();
                                         } else {
-                                            alert("An error occurred while updating the notification. Please try again later.");
+
+
+                                            $.notify({
+                                                icon: "pe-7s-gift",
+                                                message: "An error occurred while updating the notification. Please try again later."
+                                            },{
+                                                type: 'danger',
+                                                timer: 4000,
+                                                placement: {
+                                                    from: 'top',
+                                                    align: 'center'
+                                                }
+                                            });
                                         }
                                     });
                             }
@@ -247,18 +293,54 @@
                                 fetch(url, options)
                                     .then(response => {
                                         if (response.ok) {
-                                            const message = 'Notification deleted successfully';
-                                            alert(message);
+
+
+                                            $.notify({
+                                                icon: "pe-7s-gift",
+                                                message: "Notification deleted successfully"
+                                            },{
+                                                type: 'success',
+                                                timer: 4000,
+                                                placement: {
+                                                    from: 'top',
+                                                    align: 'center'
+                                                }
+                                            });
+
+
                                             refreshTable();
                                         } else {
-                                            button.text('Delete');
-                                            alert(`Failed to delete notification: ${response.status}`);
+
+                                            $.notify({
+                                                icon: "pe-7s-gift",
+                                                message: "Failed to delete notification: ${response.status}"
+                                            },{
+                                                type: 'danger',
+                                                timer: 4000,
+                                                placement: {
+                                                    from: 'top',
+                                                    align: 'center'
+                                                }
+                                            });
                                         }
                                     })
                                     .catch(error => {
                                         console.error(error);
                                         button.text('Delete');
-                                        alert('An error occurred');
+
+
+
+                                        $.notify({
+                                            icon: "pe-7s-gift",
+                                            message: "An error occurred"
+                                        },{
+                                            type: 'danger',
+                                            timer: 4000,
+                                            placement: {
+                                                from: 'top',
+                                                align: 'center'
+                                            }
+                                        });
                                     });
                             });
 

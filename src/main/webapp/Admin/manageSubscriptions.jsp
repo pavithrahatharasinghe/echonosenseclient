@@ -8,7 +8,7 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          <!-- Add Subscription Plan -->a
+          <!-- Add Subscription Plan -->
           <div class="col-md-6">
             <div class="card">
               <div class="card-header">
@@ -37,46 +37,6 @@
               </div>
             </div>
           </div>
-          <!-- Add Subscription Plan Script -->
-          <script>
-            // Function to handle the form submission for adding a subscription plan
-            function submitAddSubscriptionPlanForm(event) {
-              event.preventDefault(); // Prevent the default form submission
-
-              const formData = {
-                planName: document.querySelector('input[name="PlanName"]').value,
-                duration: document.querySelector('input[name="Duration"]').value,
-                price: document.querySelector('input[name="Price"]').value
-              };
-
-              // Perform a POST request to add the subscription plan
-              // You should replace 'vurl' with the appropriate API endpoint
-              const vurl = "http://localhost:8080/echonosenserest_war_exploded/api/subscriptions";
-              const options = {
-                method: "POST",
-
-                headers: {
-                  "content-type": "application/json"
-                },
-                body: JSON.stringify(formData)
-              };
-
-              fetch(vurl, options)
-                      .then(response => {
-                        if (response.ok) {
-                          alert("Subscription plan added successfully");
-                          document.querySelector('#addSubscriptionPlanForm').reset();
-                          refreshSubscriptionPlanTable(); // Refresh the table
-                        } else {
-                          alert("An error occurred while adding the subscription plan. Please try again later.");
-                        }
-                      });
-            }
-
-            // Attach the form submission event handler
-            document.getElementById("addSubscriptionPlanBtn").addEventListener("click", submitAddSubscriptionPlanForm);
-          </script>
-
           <!-- Update Subscription Plan -->
           <div class="col-md-6">
             <div class="card">
@@ -112,6 +72,69 @@
               </div>
             </div>
           </div>
+          <!-- Add Subscription Plan Script -->
+          <script>
+            // Function to handle the form submission for adding a subscription plan
+            function submitAddSubscriptionPlanForm(event) {
+              event.preventDefault(); // Prevent the default form submission
+
+              const formData = {
+                planName: document.querySelector('input[name="PlanName"]').value,
+                duration: document.querySelector('input[name="Duration"]').value,
+                price: document.querySelector('input[name="Price"]').value
+              };
+
+              // Perform a POST request to add the subscription plan
+              // You should replace 'vurl' with the appropriate API endpoint
+              const vurl = "http://localhost:8080/echonosenserest_war_exploded/api/subscriptions";
+              const options = {
+                method: "POST",
+
+                headers: {
+                  "content-type": "application/json"
+                },
+                body: JSON.stringify(formData)
+              };
+
+              fetch(vurl, options)
+                      .then(response => {
+                        if (response.ok) {
+
+                          $.notify({
+                            icon: "pe-7s-gift",
+                            message: "Subscription plan added successfully"
+                          }, {
+                            type: 'success',
+                            timer: 4000,
+                            placement: {
+                              from: 'top',
+                              align: 'center'
+                            }
+                          });
+
+                          document.querySelector('#addSubscriptionPlanForm').reset();
+                          refreshSubscriptionPlanTable(); // Refresh the table
+                        } else {
+                          $.notify({
+                            icon: "pe-7s-gift",
+                            message: "An error occurred while adding the subscription plan. Please try again later."
+                          }, {
+                            type: 'danger',
+                            timer: 4000,
+                            placement: {
+                              from: 'top',
+                              align: 'center'
+                            }
+                          });
+                        }
+                      });
+            }
+
+            // Attach the form submission event handler
+            document.getElementById("addSubscriptionPlanBtn").addEventListener("click", submitAddSubscriptionPlanForm);
+          </script>
+
+
           <!-- Update Subscription Plan Script -->
           <script>
             // Function to handle the form submission for updating a subscription plan
@@ -141,11 +164,33 @@
               fetch(vucurl + subscriptionPlanId, options)
                       .then(response => {
                         if (response.ok) {
-                          alert("Subscription plan updated successfully");
+
+                          $.notify({
+                            icon: "pe-7s-gift",
+                            message: "Subscription plan updated successfully"
+                          }, {
+                            type: 'success',
+                            timer: 4000,
+                            placement: {
+                              from: 'top',
+                              align: 'center'
+                            }
+                          });
+
                           refreshSubscriptionPlanTable(); // Refresh the table
                           document.querySelector('#updateSubscriptionPlanForm').reset();
                         } else {
-                          alert("An error occurred while updating the subscription plan. Please try again later.");
+                          $.notify({
+                            icon: "pe-7s-gift",
+                            message: "An error occurred while updating the subscription plan. Please try again later."
+                          }, {
+                            type: 'danger',
+                            timer: 4000,
+                            placement: {
+                              from: 'top',
+                              align: 'center'
+                            }
+                          });
                         }
                       });
             }
@@ -250,18 +295,49 @@
           fetch(url, options)
                   .then(response => {
                     if (response.ok) {
-                      const message = 'Subscription plan deleted successfully';
-                      alert(message);
+
+                      $.notify({
+                        icon: "pe-7s-gift",
+                        message: "Subscription plan deleted successfully"
+                      }, {
+                        type: 'success',
+                        timer: 4000,
+                        placement: {
+                          from: 'top',
+                          align: 'center'
+                        }
+                      });
                       refreshSubscriptionPlanTable(); // Refresh the table
                     } else {
                       button.text('Delete');
-                      alert(`Failed to delete subscription plan: ${response.status}`);
+
+                      $.notify({
+                        icon: "pe-7s-gift",
+                        message: "Failed to delete subscription plan: ${response.status}"
+                      }, {
+                        type: 'danger',
+                        timer: 4000,
+                        placement: {
+                          from: 'top',
+                          align: 'center'
+                        }
+                      });
                     }
                   })
                   .catch(error => {
                     console.error(error);
                     button.text('Delete');
-                    alert('An error occurred');
+                    $.notify({
+                      icon: "pe-7s-gift",
+                      message: "An error occurred while deleting the subscription plan."
+                    }, {
+                      type: 'danger',
+                      timer: 4000,
+                      placement: {
+                        from: 'top',
+                        align: 'center'
+                      }
+                    });
                   });
         });
       </script>

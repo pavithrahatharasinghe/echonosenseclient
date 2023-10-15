@@ -30,6 +30,11 @@
                   <tbody id="paymentTableBody">
                   </tbody>
                 </table>
+                <div class="pagination-controls-payments">
+                  <button onclick="previousPagePayments()">Previous</button>
+                  <button onclick="nextPagePayments()">Next</button>
+                </div>
+
               </div>
             </div>
           </div>
@@ -42,13 +47,13 @@
 <jsp:include page="adminFooter.jsp"/>
 
 <script>
-  refreshTable();
+  let currentPagePayments = 1; // Start on page 1 for payments
+  const itemsPerPagePayments = 20; // Display 20 payments per page
 
-  function refreshTable() {
-    const url = 'http://localhost:8080/echonosenserest_war_exploded/api/payments'; // Replace with your actual endpoint
+  function refreshPaymentTable() {
+    const url = 'http://localhost:8080/echonosenserest_war_exploded/api/payments';
     const options = {
       method: 'GET',
-
       headers: {
         'Content-Type': 'application/json'
       }
@@ -58,10 +63,15 @@
             .then(response => response.json())
             .then(data => {
               console.log(data);
-              // Clear the table body
               $('#paymentTableBody').empty();
-              // Populate the table with the data
-              $.each(data, function (index, payment) {
+
+              // Calculate start and end indices for slicing the data array
+              const startIndex = (currentPagePayments - 1) * itemsPerPagePayments;
+              const endIndex = startIndex + itemsPerPagePayments;
+
+              const pageData = data.slice(startIndex, endIndex);
+
+              $.each(pageData, function (index, payment) {
                 const row = '<tr>' +
                         '<td>' + payment.paymentID + '</td>' +
                         '<td>' + payment.userID + '</td>' +
@@ -76,5 +86,20 @@
             })
             .catch(error => console.error(error));
   }
+
+  function nextPagePayments() {
+    currentPagePayments++;
+    refreshPaymentTable();
+  }
+
+  function previousPagePayments() {
+    if (currentPagePayments > 1) {
+      currentPagePayments--;
+      refreshPaymentTable();
+    }
+  }
+
+
+  refreshPaymentTable();
 </script>
 </body>

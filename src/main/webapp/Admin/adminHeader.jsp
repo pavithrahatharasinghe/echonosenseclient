@@ -41,6 +41,16 @@
 <head>
     <meta charset="utf-8"/>
 
+    <script src="../assets/js/core/jquery.3.2.1.min.js"></script>
+    <script src="../assets/js/core/bootstrap.min.js"></script>
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+    <script src="../assets/js/plugins/bootstrap-datepicker.js"></script>
+    <script src="../assets/js/plugins/bootstrap-switch.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>Admin Dashboard</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
@@ -61,5 +71,35 @@
     <script src="../assets/js/plugins/bootstrap-notify.js"></script>
     <script src="../assets/js/plugins/bootstrap-datepicker.js"></script>
     <script src="../assets/js/plugins/bootstrap-switch.js"></script>
+
+    <style>
+        .overflow-hidden {
+            overflow: hidden;
+            max-width: 200px; /* Adjust this value based on your design requirements */
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+
+         td {
+             max-width: 200px; /* Adjust as per your requirement */
+             overflow: hidden;
+             text-overflow: ellipsis;
+             white-space: nowrap;
+         }
+        td img {
+            max-width: 100%;
+            height: auto;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+    </style>
+
+
 
 </head>

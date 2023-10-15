@@ -25,6 +25,10 @@
     <script src="assets/js/plugins/bootstrap-datepicker.js"></script>
     <script src="assets/js/plugins/bootstrap-switch.js"></script>
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.js"></script>
 
@@ -145,9 +149,13 @@
     function submitLoginForm(event) {
         event.preventDefault();
 
+
+        var password = document.querySelector('input[name="password"]').value;
+        var passhash = CryptoJS.MD5(password).toString();
+
         const formData = {
             email: document.querySelector('input[name="email"]').value,
-            password: document.querySelector('input[name="password"]').value
+            password: passhash
         };
 
         const requestOptions = {
