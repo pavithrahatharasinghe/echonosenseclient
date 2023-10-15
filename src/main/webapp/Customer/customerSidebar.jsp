@@ -30,7 +30,7 @@
 <div class="sidebar">
     <div class="sidebar-wrapper">
         <div class="logo">
-            <img style="height: 60px; width: auto" src="../webimages/bumblelogo.png"/>
+            <img style="height: 100px; width: auto" src="../webimages/echonoSenseLogo.png"/>
         </div>
         <ul class="nav">
             <li class="nav-item <%= currentPage.equals("customerDashboard.jsp") ? "active" : "" %>">
@@ -61,6 +61,12 @@
                 <a class="nav-link" href="coinPredictions.jsp">
                     <i class="nc-icon nc-lightbulb-24"></i>
                     <p>Coin Predictions</p>
+                </a>
+            </li>
+            <li class="nav-item <%= currentPage.equals("interactWithSentimentModel.jsp") ? "active" : "" %>">
+                <a class="nav-link" href="interactWithSentimentModel.jsp">
+                    <i class="nc-icon nc-lightbulb-24"></i>
+                    <p>Check Your News</p>
                 </a>
             </li>
             <li class="nav-item <%= currentPage.equals("notifications.jsp") ? "active" : "" %>">

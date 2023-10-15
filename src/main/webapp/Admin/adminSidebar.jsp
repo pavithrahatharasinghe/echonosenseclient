@@ -17,7 +17,7 @@
 <div class="sidebar">
     <div class="sidebar-wrapper">
         <div class="logo">
-            <img style="height: 60px; width: auto" src="../webimages/bumblelogo.png"/>
+            <img style="height: 100px; width: auto" src="../webimages/echonoSenseLogo.png"/>
         </div>
         <ul class="nav">
             <li class="nav-item <%= currentPage.equals("adminDashboard.jsp") ? "active" : "" %>">

@@ -10,19 +10,17 @@
   Cookie[] cookies = request.getCookies(); // Get all cookies sent by the client
   if (cookies != null) {
     for (Cookie cookie : cookies) {
-      if (cookie.getName().equals("isLoggedIn")) { // Check if the cookie with name "isLoggedIn" exists
-        cookie.setValue("0"); // Update the cookie value to "0"
+      if (cookie.getName().equals("isLoggedIn") ||
+              cookie.getName().equals("customer_email") ||
+              cookie.getName().equals("admin_email") ||
+              cookie.getName().equals("userId") ||
+              cookie.getName().equals("fname") ||
+              cookie.getName().equals("lName") ||
+              cookie.getName().equals("email") ||
+              cookie.getName().equals("role") ||
+              cookie.getName().equals("status")) {
+        cookie.setValue(""); // Clear the cookie by setting its value to an empty string
         response.addCookie(cookie); // Add the updated cookie to the response object
-
-      }
-      if (cookie.getName().equals("customer_email")) { // Check if the cookie with name "isLoggedIn" exists
-        cookie.setValue(""); // Update the cookie value to "0"
-        response.addCookie(cookie); // Add the updated cookie to the response object
-      }
-      if (cookie.getName().equals("admin_email")) { // Check if the cookie with name "isLoggedIn" exists
-        cookie.setValue("0"); // Update the cookie value to "0"
-        response.addCookie(cookie); // Add the updated cookie to the response object
-
       }
     }
   }

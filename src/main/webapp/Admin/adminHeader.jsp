@@ -9,6 +9,7 @@
 <%
     // Check if the login cookie is set
     boolean isLoggedIn = false;
+    String userRole = null; // Assuming user role is stored in a cookie or session attribute
     Cookie[] cookies = request.getCookies();
     if (cookies != null) {
         for (Cookie cookie : cookies) {
@@ -16,15 +17,17 @@
                 if (cookie.getValue().equals("1")) {
                     isLoggedIn = true;
                 }
-                break;
+            }
+            if (cookie.getName().equals("role")) {
+                userRole = cookie.getValue();
             }
         }
     }
-    // If user is not logged in, redirect to login page
-    if (!isLoggedIn) {
+
+    // If user is not logged in or not an admin, redirect to login page
+    if (!isLoggedIn || !("admin".equals(userRole))) {
         response.sendRedirect("../login.jsp");
     }
-
 
     if (isLoggedIn && request.getParameter("logout") != null) {
         Cookie logoutCookie = new Cookie("isLoggedIn", "0");
@@ -34,11 +37,10 @@
     }
 %>
 <html>
-<head>
+
 <head>
     <meta charset="utf-8"/>
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>Admin Dashboard</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
@@ -53,5 +55,11 @@
     <link href="../assets/css/demo.css" rel="stylesheet"/>
     <!-- Include jQuery from a CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../assets/js/core/jquery.3.2.1.min.js"></script>
+    <script src="../assets/js/core/bootstrap.min.js"></script>
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+    <script src="../assets/js/plugins/bootstrap-datepicker.js"></script>
+    <script src="../assets/js/plugins/bootstrap-switch.js"></script>
 
 </head>

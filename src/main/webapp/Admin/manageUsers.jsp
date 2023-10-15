@@ -3,7 +3,7 @@
     <div class="wrapper">
         <jsp:include page="adminSidebar.jsp"/>
         <div class="main-panel">
-
+            <jsp:include page="adminNavbar.jsp"/>
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">

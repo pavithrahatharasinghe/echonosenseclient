@@ -2,6 +2,7 @@
 <div class="wrapper">
   <%@ include file="adminSidebar.jsp" %>
   <div class="main-panel">
+    <jsp:include page="adminNavbar.jsp"/>
     <div class="content">
       <div class="container-fluid">
         <div class="row">
