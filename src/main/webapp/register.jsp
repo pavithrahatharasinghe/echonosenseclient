@@ -124,8 +124,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="passwordInput">Password</label>
-                                    <input type="password" class="form-control" id="passwordInput" name="password"
-                                           required>
+                                    <input type="password" class="form-control" id="passwordInput" name="password" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Register</button>
                             </form>
@@ -149,6 +148,27 @@
         var password = document.querySelector('input[name="password"]').value;
         var passhash = CryptoJS.MD5(password).toString();
 
+
+        if (password.length <= 6) {
+
+
+            $.notify({
+                icon: "pe-7s-gift",
+                message: "Password must be at least 6 characters long."
+            }, {
+                type: 'warning',
+                timer: 4000,
+                placement: {
+                    from: 'top',
+                    align: 'center'
+                }
+            });
+            return;
+        }
+
+
+
+
         const formData = {
           fname: document.querySelector('input[name="firstName"]').value,
           lName: document.querySelector('input[name="lastName"]').value,
@@ -157,12 +177,6 @@
           status: 'active',
           role : 'customer'
         };
-
-
-
-
-
-
 
         const requestOptions = {
             method: "POST",
@@ -192,12 +206,37 @@
                     // Redirect to a success page or perform other actions as needed
                     window.location.replace("login.jsp");
                 } else {
-                    alert("Registration failed. Please try again.");
+
+
+                      $.notify({
+                          icon: "pe-7s-gift",
+                          message: "Registration failed. Please try again."
+                      }, {
+                          type: 'danger',
+                          timer: 4000,
+                          placement: {
+                              from: 'top',
+                              align: 'center'
+                          }
+                      });
                 }
             })
             .catch(error => {
                 console.error("Error during registration:", error);
-                alert("Registration failed. Please try again.");
+
+
+                $.notify({
+                    icon: "pe-7s-gift",
+                    message: "Registration failed. Please try again."
+                }, {
+                    type: 'danger',
+                    timer: 4000,
+                    placement: {
+                        from: 'top',
+                        align: 'center'
+                    }
+                });
+
             });
     }
 

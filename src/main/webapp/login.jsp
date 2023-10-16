@@ -196,7 +196,42 @@
                         if (user.role === "admin") {
                             window.location.replace("admin/setAdminLoginCookies.jsp?email=" + formData.email+ "&userId="+user.userId );
                         } else if (user.role === "customer") {
-                            window.location.replace("Customer/setCustomerLoginCookies.jsp?email=" + formData.email+ "&userId="+user.userId);
+
+
+                            const subscriptionHistoryUrl = "<%= host %>"+"subscriptionhistories/user/"+user.userId;
+
+                            fetch(subscriptionHistoryUrl)
+                                .then(response => response.json())
+                                .then(subscriptionHistories => {
+                                    if (subscriptionHistories.length > 0) {
+                                        const subscription = subscriptionHistories[0];
+                                        const endDate = new Date(subscription.endDate);
+                                        const currentDate = new Date();
+
+                                        if (currentDate > endDate) {
+                                            window.location.replace("Customer/setCustomerLoginCookies.jsp?email=" + formData.email+ "&userId="+user.userId);
+                                        }
+                                        else{
+                                            $.notify({
+                                                icon: "pe-7s-gift",
+                                                message: "Subscription Ended Please renew to Access"
+                                            },{
+                                                type: 'danger',
+                                                timer: 4000,
+                                                placement: {
+                                                    from: 'top',
+                                                    align: 'center'
+                                                }
+                                            });
+                                        }
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error("Error while checking subscription:", error);
+                                });
+
+
+
                         } else {
                             alert("Invalid user role");
                         }
