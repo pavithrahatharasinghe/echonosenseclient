@@ -46,16 +46,24 @@
 
     // Construct the URL for sentiment analysis
     const url = 'http://127.0.0.1:5000/predict_sentiment';
-    const data = { text };
+    const data = '{ "text": "' + text + '" }';  // Ensure the key is enclosed in double quotes
+    console.log(data);
 
     fetch(url, {
       method: 'POST',
+      mode: 'no-cors',  // Add this line
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: data,
     })
-            .then((response) => response.json())
+
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
             .then((data) => {
               const sentimentResults = document.getElementById('sentimentResults');
               let backgroundColor = '';
@@ -68,8 +76,8 @@
               }
 
               sentimentResults.innerHTML = `<h4>Sentiment Analysis Result</h4>
-                <p><strong>Polarity:</strong> ${data.polarity}</p>
-                <p><strong>Sentiment Class:</strong> ${data.sentiment_class}</p>`;
+        <p><strong>Polarity:</strong> ${data.polarity}</p>
+        <p><strong>Sentiment Class:</strong> ${data.sentiment_class}</p>`;
 
               sentimentResults.style.backgroundColor = backgroundColor;
             })
@@ -78,7 +86,9 @@
               alert('An error occurred while analyzing sentiment.');
             });
   });
+
 </script>
+
 
 <jsp:include page="customerFooter.jsp" />
 </body>
