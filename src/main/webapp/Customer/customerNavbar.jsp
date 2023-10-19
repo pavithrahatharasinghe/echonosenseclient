@@ -36,6 +36,7 @@
     e.printStackTrace();
   }
   String host = properties.getProperty("host.url");
+  String sentimentModel = properties.getProperty("model.sentiment");
   String userId = ""; // Initialize userId
   Cookie[] cookies = request.getCookies();
   if (cookies != null) {
