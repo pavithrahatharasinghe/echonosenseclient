@@ -1,4 +1,18 @@
+<%@ page import="java.util.Properties" %>
+<%@ page import="java.io.FileInputStream" %>
 <jsp:include page="adminHeader.jsp"/>
+<%
+    Properties properties = new Properties();
+    try {
+        // Load the configuration file
+        String configFilePath = application.getRealPath("/WEB-INF/config.properties");
+        properties.load(new FileInputStream(configFilePath));
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    String host = properties.getProperty("host.url");
+    String newsEndpoint = properties.getProperty("newsEndpoint");
+%>
 <body>
 <div class="wrapper">
     <jsp:include page="adminSidebar.jsp"/>
@@ -48,7 +62,7 @@
                         const itemsPerPage = 20; // Display 20 items per page
 
                         function refreshTable() {
-                            const url = 'http://localhost:8080/echonosenserest_war_exploded/api/news';
+                            const url = '<%=newsEndpoint%>';
                             const options = {
                                 method: 'GET',
                                 headers: {

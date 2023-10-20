@@ -1,3 +1,5 @@
+<%@ page import="java.util.Properties" %>
+<%@ page import="java.io.FileInputStream" %>
 <jsp:include page="adminHeader.jsp"/>
 
 <body>
@@ -50,8 +52,21 @@
   let currentPagePayments = 1; // Start on page 1 for payments
   const itemsPerPagePayments = 20; // Display 20 payments per page
 
+  <%
+    Properties properties = new Properties();
+    try {
+        // Load the configuration file
+        String configFilePath = application.getRealPath("/WEB-INF/config.properties");
+        properties.load(new FileInputStream(configFilePath));
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    String host = properties.getProperty("host.url");
+    String paymentEnd = properties.getProperty("paymentEnd");
+%>
+
   function refreshPaymentTable() {
-    const url = 'http://localhost:8080/echonosenserest_war_exploded/api/payments';
+    const url = '<%=paymentEnd%>';
     const options = {
       method: 'GET',
       headers: {

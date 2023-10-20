@@ -1,5 +1,19 @@
+<%@ page import="java.util.Properties" %>
+<%@ page import="java.io.FileInputStream" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <jsp:include page="adminHeader.jsp"/>
+<%
+    Properties properties = new Properties();
+    try {
+        // Load the configuration file
+        String configFilePath = application.getRealPath("/WEB-INF/config.properties");
+        properties.load(new FileInputStream(configFilePath));
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    String host = properties.getProperty("host.url");
+    String coins = properties.getProperty("coins.get");
+%>
 <body>
 <div class="wrapper">
     <jsp:include page="adminSidebar.jsp"/> <!-- This will include the sidebar -->
@@ -118,7 +132,7 @@ document.getElementById("addCoinBtn").addEventListener("click", function(event) 
         status: "Active"  // Default status for new coins
     };
 
-    fetch('http://localhost:8080/echonosenserest_war_exploded/api/coins', {
+    fetch('<%=coins%>', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -155,7 +169,7 @@ document.getElementById("updateCoinBtn").addEventListener("click", function(even
         imageUrl: document.querySelector('input[name="updateCoinImageUrl"]').value
     };
 
-    fetch('http://localhost:8080/echonosenserest_war_exploded/api/coins/' + coinData.id, {
+    fetch('<%=coins%>/' + coinData.id, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -180,7 +194,7 @@ document.getElementById("updateCoinBtn").addEventListener("click", function(even
 // Display Coins in Table
 function refreshCoinTable() {
 
-    const url = 'http://localhost:8080/echonosenserest_war_exploded/api/coins';
+    const url = '<%=coins%>';
     const options = {
         method: 'GET',
 

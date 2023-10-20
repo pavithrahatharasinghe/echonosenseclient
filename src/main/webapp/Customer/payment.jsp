@@ -1,3 +1,5 @@
+<%@ page import="java.util.Properties" %>
+<%@ page import="java.io.FileInputStream" %>
 <jsp:include page="customerHeader.jsp" />
 
 <body>
@@ -71,9 +73,21 @@
 </div>
 
 <script>
+
+    <%
+    Properties properties = new Properties();
+    try {
+        // Load the configuration file
+        String configFilePath = application.getRealPath("/WEB-INF/config.properties");
+        properties.load(new FileInputStream(configFilePath));
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    String servicesEndpoint = properties.getProperty("servicesEndpoint");
+%>
     // Fetch plan details based on planID and populate the right side
     async function fetchPlanDetails(planID) {
-        const apiEndpoint = 'http://localhost:8080/echonosenserest_war_exploded/api/subscriptions/' + planID;
+        const apiEndpoint = '<%=servicesEndpoint%>' + planID;
         const data = await fetchData(apiEndpoint);
         if (data) {
             const planDetailsDiv = document.getElementById("selectedPlanDetails");

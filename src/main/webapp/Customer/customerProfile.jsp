@@ -13,6 +13,7 @@
         e.printStackTrace();
     }
     String host = properties.getProperty("host.url");
+    String usersurl = properties.getProperty("usersurl");
     String userId = ""; // Initialize userId
     Cookie[] cookies = request.getCookies();
     if (cookies != null) {
@@ -187,8 +188,9 @@
             body: sendpw
         };
 
+
         // Replace 'vucurl' with the appropriate API endpoint
-        const vucurl = "http://localhost:8080/echonosenserestnew_war_exploded/api/users/" + userId + "/password";
+        const vucurl = '<%= usersurl %>' + userId + "/password";
 
         // Add password validation on the client side
         if (currentPassword === newPassword) {
@@ -251,7 +253,7 @@
         };
 
         // Replace 'vucurl' with the appropriate API endpoint
-        const vucurl = "http://localhost:8080/echonosenserest_war_exploded/api/users/" + userId + '/details';
+        const vucurl = "<%= usersurl %>" + userId + '/details';
         fetch(vucurl, options)
             .then(response => {
                 if (response.ok) {

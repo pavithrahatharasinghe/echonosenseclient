@@ -120,7 +120,6 @@
 
         fetch(sentimentUrl, {
             method: 'POST',
-
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
@@ -135,24 +134,39 @@
             })
             .then((data) => {
                 const sentimentResults = document.getElementById('sentimentResults');
-                let backgroundColor = '';
-                if (data.sentiment_class === 'positive') {
-                    backgroundColor = '#9ABB90';
-                } else if (data.sentiment_class === 'negative') {
-                    backgroundColor = '#BA6069';
-                } else {
-                    backgroundColor = '#20466A';
+
+                // Check for known error messages
+                if (data.error) {
+
+                    alert(data.error);
+                    sentimentResults.innerHTML = '<h4>Sentiment Analysis Result</h4>' +
+                        '<p><strong>Oh Snap</strong> ' + data.error + '</p>';
+
+                    sentimentResults.style.backgroundColor = '#FFFFFF';
                 }
-                sentimentResults.innerHTML = '<h4>Sentiment Analysis Result</h4>' +
-                    '<p><strong>Polarity:</strong> ' + data.polarity + '</p>' +
-                    '<p><strong>Sentiment Class:</strong> ' + data.sentiment_class + '</p>';
-                sentimentResults.style.backgroundColor = backgroundColor;
+
+                // If the response contains the expected data, process and display the results
+                if (data.polarity && data.sentiment_class) {
+                    let backgroundColor = '';
+                    if (data.sentiment_class === 'positive') {
+                        backgroundColor = '#9ABB90';
+                    } else if (data.sentiment_class === 'negative') {
+                        backgroundColor = '#BA6069';
+                    } else {
+                        backgroundColor = '#20466A';
+                    }
+                    sentimentResults.innerHTML = '<h4>Sentiment Analysis Result</h4>' +
+                        '<p><strong>Polarity:</strong> ' + data.polarity + '</p>' +
+                        '<p><strong>Sentiment Class:</strong> ' + data.sentiment_class + '</p>';
+                    sentimentResults.style.backgroundColor = backgroundColor;
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);
                 alert('An error occurred while analyzing sentiment.');
             });
     });
+
 </script>
 
 

@@ -1,5 +1,18 @@
+<%@ page import="java.util.Properties" %>
+<%@ page import="java.io.FileInputStream" %>
 <jsp:include page="adminHeader.jsp" />
+<%
+  Properties properties = new Properties();
+  try {
+    // Load the configuration file
+    String configFilePath = application.getRealPath("/WEB-INF/config.properties");
+    properties.load(new FileInputStream(configFilePath));
+  } catch (Exception e) {
+    e.printStackTrace();
+  }
+  String servicesEndpoint = properties.getProperty("servicesEndpoint");
 
+%>
 <body>
 <div class="wrapper">
   <jsp:include page="adminSidebar.jsp" />
@@ -86,7 +99,7 @@
 
               // Perform a POST request to add the subscription plan
               // You should replace 'vurl' with the appropriate API endpoint
-              const vurl = "http://localhost:8080/echonosenserest_war_exploded/api/subscriptions";
+              const vurl = '<%=servicesEndpoint%>';
               const options = {
                 method: "POST",
 
@@ -160,7 +173,7 @@
 
               // Perform a PUT request to update the subscription plan
               // You should replace 'vucurl' with the appropriate API endpoint
-              const vucurl = "http://localhost:8080/echonosenserest_war_exploded/api/subscriptions/";
+              const vucurl = "<%=servicesEndpoint%>";
               fetch(vucurl + subscriptionPlanId, options)
                       .then(response => {
                         if (response.ok) {
@@ -250,7 +263,7 @@
 
         // Function to refresh the subscription plans table
         function refreshSubscriptionPlanTable() {
-          const url = 'http://localhost:8080/echonosenserest_war_exploded/api/subscriptions';
+          const url = '<%=servicesEndpoint%>/';
           const options = {
             method: 'GET',
 

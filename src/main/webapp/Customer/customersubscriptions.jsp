@@ -1,3 +1,5 @@
+<%@ page import="java.util.Properties" %>
+<%@ page import="java.io.FileInputStream" %>
 <jsp:include page="customerHeader.jsp" />
 
 <body>
@@ -130,9 +132,23 @@
 
     // Call the functions to fetch and render data when the page loads
     (async () => {
-        const historyEndpoint = 'http://localhost:8080/echonosenserest_war_exploded/api/payments';
-        const servicesEndpoint = 'http://localhost:8080/echonosenserest_war_exploded/api/subscriptions';
-        const subscriptionEndpoint = 'http://localhost:8080/echonosenserest_war_exploded/api/subscriptions';
+
+        <%
+    Properties properties = new Properties();
+    try {
+        // Load the configuration file
+        String configFilePath = application.getRealPath("/WEB-INF/config.properties");
+        properties.load(new FileInputStream(configFilePath));
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    String historyEndpoint = properties.getProperty("historyEndpoint");
+    String servicesEndpoint = properties.getProperty("servicesEndpoint");
+    String subscriptionEndpoint = properties.getProperty("subscriptionEndpoint");
+%>
+        const historyEndpoint = <%= historyEndpoint %>
+        const servicesEndpoint = <%= servicesEndpoint %>
+        const subscriptionEndpoint = <%= subscriptionEndpoint %>
 
         const paymentData = await fetchData(historyEndpoint);
         const servicesData = await fetchData(servicesEndpoint);

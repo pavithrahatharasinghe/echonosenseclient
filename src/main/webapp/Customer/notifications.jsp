@@ -1,3 +1,5 @@
+<%@ page import="java.util.Properties" %>
+<%@ page import="java.io.FileInputStream" %>
 <jsp:include page="customerHeader.jsp" />
 <body>
 <div class="wrapper">
@@ -30,10 +32,21 @@
                             </div>
                         </div>
                     </div>
+                    <%
+                        Properties properties = new Properties();
+                        try {
+                            // Load the configuration file
+                            String configFilePath = application.getRealPath("/WEB-INF/config.properties");
+                            properties.load(new FileInputStream(configFilePath));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        String notificationUrl = properties.getProperty("notificationUrl");
+                    %>
 
                     <script>
                         const storedEmail = getCookie("Customer_email");
-                        const notificationUrl = `http://localhost:8080/echonosenserest_war_exploded/api/notifications/user/123`;
+                        const notificationUrl = `<%= notificationUrl %>`;
 
                         function getCookie(name) {
                             const value = `; ${document.cookie}`;
@@ -66,7 +79,7 @@
                             const notificationId = $(this).closest('tr').find('td:eq(0)').text();
                             const button = $(this);
                             button.text('Processing...');
-                            const url = `http://localhost:8080/echonosenserest_war_exploded/api/notifications/${notificationId}`;
+                            const url = `<%=notificationUrl%>/${notificationId}`;
                             const options = {
                                 method: 'DELETE',
                                 headers: {

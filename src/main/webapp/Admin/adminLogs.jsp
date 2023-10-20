@@ -1,3 +1,5 @@
+<%@ page import="java.util.Properties" %>
+<%@ page import="java.io.FileInputStream" %>
 <jsp:include page="adminHeader.jsp"/>
 <div class="wrapper">
   <%@ include file="adminSidebar.jsp" %>
@@ -34,10 +36,21 @@
   </div>
 </div>
 <script>
+  <%
+    Properties properties = new Properties();
+    try {
+        // Load the configuration file
+        String configFilePath = application.getRealPath("/WEB-INF/config.properties");
+        properties.load(new FileInputStream(configFilePath));
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    String logsURL = properties.getProperty("admin.log.get");
+%>
   refreshTable();
 
   function refreshTable() {
-    const url = 'http://localhost:8080/echonosenserest_war_exploded/api/adminlogs';
+    const url = '<%= logsURL %>';
     const options = {
       method: 'GET',
 

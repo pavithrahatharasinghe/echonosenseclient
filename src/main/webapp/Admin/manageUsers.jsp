@@ -1,4 +1,18 @@
-    <jsp:include page="adminHeader.jsp"/>
+<%@ page import="java.util.Properties" %>
+<%@ page import="java.io.FileInputStream" %>
+<jsp:include page="adminHeader.jsp"/>
+    <%
+        Properties properties = new Properties();
+        try {
+            // Load the configuration file
+            String configFilePath = application.getRealPath("/WEB-INF/config.properties");
+            properties.load(new FileInputStream(configFilePath));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String usersurl = properties.getProperty("usersurl");
+
+    %>
     <body>
     <div class="wrapper">
         <jsp:include page="adminSidebar.jsp"/>
@@ -112,7 +126,7 @@
                                 const customerId = $(this).closest('tr').find('td:eq(0)').text();
                                 const button = $(this);
                                 button.text('Processing...');
-                                const url = 'http://localhost:8080/echonosenserest_war_exploded/api/users/' + customerId;
+                                const url = '<%=usersurl%>' + customerId;
                                 const options = {
                                     method: 'DELETE',
                                     headers: {

@@ -37,6 +37,8 @@
   }
   String host = properties.getProperty("host.url");
   String sentimentModel = properties.getProperty("model.sentiment");
+  String notificationUrl = properties.getProperty("notificationUrl");
+
   String userId = ""; // Initialize userId
   Cookie[] cookies = request.getCookies();
   if (cookies != null) {
@@ -70,6 +72,7 @@
     e.printStackTrace();
   }
 %>
+
 <nav class="navbar navbar-expand-lg " color-on-scroll="500">
   <div class="container-fluid">
     <a class="navbar-brand" href="#pablo">
@@ -98,7 +101,7 @@
             function fetchNotifications() {
 
               const userId = <%= userId %>;
-              const notificationUrl = 'http://localhost:8080/echonosenserest_war_exploded/api/notifications/user/'+userId; // Replace with your actual API endpoint
+              const notificationUrl = '<%= notificationUrl %>'+userId; // Replace with your actual API endpoint
 
               fetch(notificationUrl)
                       .then(response => response.json())

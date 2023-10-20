@@ -1,3 +1,5 @@
+<%@ page import="java.util.Properties" %>
+<%@ page import="java.io.FileInputStream" %>
 <jsp:include page="adminHeader.jsp"/>
 <body>
 <div class="wrapper">
@@ -41,8 +43,20 @@
                             </div>
                         </div>
                         <script>
+                            <%
+    Properties properties = new Properties();
+    try {
+        // Load the configuration file
+        String configFilePath = application.getRealPath("/WEB-INF/config.properties");
+        properties.load(new FileInputStream(configFilePath));
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    String notificationEnd = properties.getProperty("notificationEnd");
+
+%>
                             const currentDate = new Date().toISOString();
-                            const vurl = "http://localhost:8080/echonosenserest_war_exploded/api/notifications";
+                            const vurl = '<%=notificationEnd%>';
 
                             document.querySelectorAll('input[name="userSelection"]').forEach(radio => {
                                 radio.addEventListener('change', function () {
@@ -180,7 +194,7 @@
                                 });
                             });
 
-                            const vucurl = "http://localhost:8080/echonosenserest_war_exploded/api/notifications/";
+                            const vucurl = "<%=notificationEnd%>/";
 
                             function submitUpdateForm(event) {
                                 event.preventDefault();
@@ -283,7 +297,7 @@
                                 const notificationId = $(this).closest('tr').find('td:eq(0)').text();
                                 const button = $(this);
                                 button.text('Processing...');
-                                const url = 'http://localhost:8080/echonosenserest_war_exploded/api/notifications/' + notificationId;
+                                const url = '<%=notificationEnd%>/' + notificationId;
                                 const options = {
                                     method: 'DELETE',
                                     headers: {
@@ -345,7 +359,7 @@
                             });
 
                             function refreshTable() {
-                                const url = 'http://localhost:8080/echonosenserest_war_exploded/api/notifications';
+                                const url = '<%=notificationEnd%>';
                                 const options = {
                                     method: 'GET',
 
